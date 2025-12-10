@@ -1,244 +1,280 @@
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>CustomizeGPT</title>
-        <style>
-            * {
-                box-sizing: border-box;
-                margin: 0;
-                padding: 0;
-                font-family: Arial, sans-serif;
-            }
 
-            body {
-                display: flex;
-                flex-direction: column;
-                height: 100vh;
-                background-color: #343541;
-                color : #ececf1;
-            }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CustomizeGPT</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
 
-            .header {
-                background-color: #202123;
-                padding: 12px 20px;
-                border-bottom: 1px solid #565869;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #343541;
+            color: #ececf1;
+        }
 
-            .header h1 {
-                font-weight: 600;
-                font-size: 18px;
-            }
+        .header {
+            background-color: #202123;
+            padding: 12px 20px;
+            border-bottom: 1px solid #565869;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-            .chat-container {
-                flex: 1;
-                padding: 20px;
-                overflow-y: auto;
-                display: flex;
-                flex-direction: column;
-                gap: 20px;
-            }
+        .header h1 {
+            font-weight: 600;
+            font-size: 18px;
+        }
 
-            .message {
-                display: flex;
-                gap: 16px;
-                padding: 20px;
-                max-width: 800px;
-                margin: 0 auto;
-            }
+        .chat-container {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
 
-            .message.user {
-                background-color: #343541;
-            }
+        .message {
+            display: flex;
+            gap: 16px;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
-            .message.assistant {
-                background-color: #444654;
-            }
+        .message.user {
+            background-color: #343541;
+        }
 
-            .avatar {
-                width: 30px;
-                height: 30px;
-                border-radius: 4px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-weight: bold;
-                font-size: 14px;
-            }
+        .message.assistant {
+            background-color: #444654;
+        }
 
-            .avatar.user {
-                background-color: #5463da;
-            }
-            .avatar.assistant {
-                background-color: #10a37f;
-            }  
-            
-            .message-content {
-                flex: 1;
-                line-height: 1.6;
-            }
+        .avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
 
-            .input-container {
-                padding: 20px;
-                border-top: 1px solid #565869;
-                background-color: #343541;
-            }
+        .avatar.user {
+            background-color: #5463da;
+        }
 
-            .input-wrapper {
-                position: relative;
-                max-width: 800px;
-                margin: 0 auto;
-            }
+        .avatar.assistant {
+            background-color: #10a37f;
+        }
 
-            .input-box {
-                width: 100%;
-                background-color: #40414f;
-                border: 1px solid #565869;
-                border-radius: 8px;
-                padding: 12px 50px 12px 16px;
-                font-size: 16px;
-                color: #ececf1;
-                resize: none;
-                outline: none;
-                font-family: inherit;
-                min-height: 50px;
-                max-height: 200px;
-            }   
+        .message-content {
+            flex: 1;
+            line-height: 1.6;
+        }
 
-            .input-box:focus {
-                border-color: #10a37f;
-            }
+        .input-container {
+            padding: 20px;
+            border-top: 1px solid #565869;
+            background-color: #343541;
+        }
 
-            .send-button {
-                position: absolute;
-                right: 12px;
-                bottom: 12px;
-                background-color: #10a37f;
-                border: none;
-                border-radius: 6px;
-                color: white;
-                width: 32px;
-                height: 32px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                transition: background-color 0.3s;
-                padding: 6px;
-            }
+        .input-wrapper {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
-            .send-button svg {
-                width: 100%;
-                height: 100%;
-            }
+        .input-box {
+            width: 100%;
+            background-color: #40414f;
+            border: 1px solid #565869;
+            border-radius: 8px;
+            padding: 12px 50px 12px 16px;
+            font-size: 16px;
+            color: #ececf1;
+            resize: none;
+            outline: none;
+            font-family: inherit;
+            min-height: 50px;
+            max-height: 200px;
+        }
 
-            .send-button:hover {
-                background-color: #0e8e6e;
-            }
+        .input-box:focus {
+            border-color: #10a37f;
+        }
 
-            .send-button:disabled {
-                background-color: #565869;
-                cursor: not-allowed;
-            }
+        .send-button {
+            position: absolute;
+            right: 12px;
+            bottom: 12px;
+            background-color: #10a37f;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            padding: 6px;
+        }
 
-            
-        </style>
-    </head>
-    <body>
-        <div class="header">
-            <h1>CustomizeGPT</h1>
+        .send-button svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .send-button:hover {
+            background-color: #0e8e6e;
+        }
+
+        .send-button:disabled {
+            background-color: #565869;
+            cursor: not-allowed;
+        }
+
+        .chat-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chat-container::-webkit-scrollbar-track {
+            background-color: #343541;
+        }
+
+        .chat-container::-webkit-scrollbar-thumb {
+            background-color: #565869;
+            border-radius: 4px;
+        }
+
+        .chat-container::-webkit-scrollbar-thumb:hover {
+            background-color: #666;
+        }
+
+        .empty-state {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 16px;
+            color:#8e8ea0;
+        }
+
+        .empty-state h2 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>CustomizeGPT</h1>
+    </div>
+    <!-- 注意,同一個名稱的ID只能有一個 -->
+    <div class="chat-container" id="chatContainer">
+        <!-- 空的狀態框 -->
+        <div class="empty-state">
+            <h2>歡迎使用CustomizeGPT!</h2>
+            <p>請在下方輸入訊息開始對話。</p>
         </div>
-        <!-- 注意,同一個名稱的ID只能有一個 -->
-        <div class="chat-container" id="chatContainer">
-            <!-- 空的狀態框 -->
-            <div class="empty-state">
-                <h2>歡迎使用CustomizeGPT!</h2>
-                <p>請在下方輸入訊息開始對話。</p>
-            </div>
+    </div>
+
+    <div class="input-container">
+        <div class="input-wrapper">
+            <textarea class="input-box" id="messageInput" placeholder="輸入您的訊息..." rows="1"></textarea>
+            <button class="send-button" id="sendButton">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+                </svg>
+            </button>
         </div>
+    </div>
 
-        <div class="input-container">
-            <div class="input-wrapper">
-                <textarea class="input-box" id="messageInput" placeholder="輸入您的訊息..." rows="1"></textarea>
-                <button class="send-button" id="sendButton" >
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="22" y1="2" x2="11" y2="13"></line>
-                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <script>
-            const chatContainer = document.getElementById('chatContainer');
-            const messageInput = document.getElementById('messageInput');
-            const sendButton = document.getElementById('sendButton');
 
-            messageInput.addEventListener('input', () => {
-                this.style.height = 'auto';
-                this.style.height = Math.min(this.scrollHeight) + 'px';
-            });
+    <script>
+        const chatContainer = document.getElementById('chatContainer');
+        const messageInput = document.getElementById('messageInput');
+        const sendButton = document.getElementById('sendButton');
 
-            messageInput.addEventListener('keydown', (event) => {
-                if (event.key === 'Enter' && !event.shiftKey) {
-                    event.preventDefault();
-                    sendMessage();
-                }
-            });
+        messageInput.addEventListener('input', () => {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight) + 'px';
+        });
 
-            sendButton.addEventListener('click', () => {
+        messageInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
                 sendMessage();
-            });
+            }
+        });
 
-            // 新增訊息到聊天容器
-            function addMessage(text, role) {
-                const messageDiv = document.createElement('div');
-                messageDiv.className = `message ${role}`;
+        sendButton.addEventListener('click', () => {
+            sendMessage();
+        });
 
-                const avatar = document.createElement('div');
-                avatar.className = `avatar ${role}`;
-                avatar.textContent = role === 'user' ? 'U' : 'AI';
+        // 新增訊息到聊天容器
+        function addMessage(text, role) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${role}`;
 
-                const content = document.createElement('div');
-                content.className = 'message-content';
-                content.textContent = text;
+            const avatar = document.createElement('div');
+            avatar.className = `avatar ${role}`;
+            avatar.textContent = role === 'user' ? 'U' : 'AI';
 
-                messageDiv.appendChild(avatar);
-                messageDiv.appendChild(content);
-                chatContainer.appendChild(messageDiv);
+            const content = document.createElement('div');
+            content.className = 'message-content';
+            content.textContent = text;
 
-                // 自動滾動到底部
-                chatContainer.scrollTop = chatContainer.scrollHeight;
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(content);
+            chatContainer.appendChild(messageDiv);
+
+            // 自動滾動到底部
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function sendMessage() {
+            // 取出使用者輸入的訊息
+            const message = messageInput.value.trim();
+
+            if (message === '')
+                return;
+
+            // 移除空的狀態框
+            const emptyState = chatContainer.querySelector('.empty-state');
+            if (emptyState) {
+                emptyState.remove();
             }
 
-            function sendMessage() {
-                // 取出使用者輸入的訊息
-                const message = messageInput.value.trim();
+            // 建立使用者訊息的元素
+            addMessage(message, 'user');
 
-                if (message === '') 
-                    return;
+            // 清空輸入框
+            messageInput.value = '';
+            messageInput.style.height = 'auto';
 
-                // 移除空的狀態框
-                const emptyState = chatContainer.querySelector('.empty-state');
-                if (emptyState) {
-                    emptyState.remove();
-                }
+            // 模擬AI回覆
+            setTimeout(() => {
+                addMessage('你好,現在我還沒上線,請你等我有上線的時候再來跟我聊天喔~!!', 'ai');
+            }, 1000);
+        }
 
-                // 建立使用者訊息的元素
-                addMessage(message, 'user');
+    </script>
+</body>
 
-                // 清空輸入框
-                messageInput.value = '';
-                messageInput.style.height = 'auto';
-
-                // 模擬AI回覆
-                setTimeout(() => {
-                    addMessage('你好,現在我還沒上線,請你等我有上線的時候再來跟我聊天喔~!!', 'ai');
-                }, 1000);
-            }
-
-        </script>
-    </body>
 </html>
