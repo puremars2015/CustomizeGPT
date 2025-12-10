@@ -26,9 +26,13 @@ pip install flask
 2. index.html
 控制畫面
 
+- 不含css的畫面
+
 - ![不含css的畫面會像](https://github.com/puremars2015/CustomizeGPT/blob/main/source/%E4%B8%8D%E5%90%ABcss%E5%8A%9F%E8%83%BD%E7%95%AB%E9%9D%A2.png)
 
 - 注意 html上的id, 只能有一個,超過會容易出錯
+
+
 
 # call api 
 
