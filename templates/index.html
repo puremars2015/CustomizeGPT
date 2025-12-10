@@ -163,12 +163,13 @@
         <div class="input-container">
             <div class="input-wrapper">
                 <textarea class="input-box" id="messageInput" placeholder="輸入您的訊息..." rows="1"></textarea>
+                <button class="send-button" id="sendButton" >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                </button>
             </div>
-            <button class="send-button" id="sendButton" >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M22 2L11 13M22 21-7 20-4-9-9-4 20-7z"/>                  
-                </svg>
-            </button>
         </div>
         <script>
             const chatContainer = document.getElementById('chatContainer');
