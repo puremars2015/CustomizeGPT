@@ -272,10 +272,21 @@
             messageInput.value = '';
             messageInput.style.height = 'auto';
 
-            // 模擬AI回覆
-            setTimeout(() => {
-                addMessage('你好,現在我還沒上線,請你等我有上線的時候再來跟我聊天喔~!!', 'ai');
-            }, 1000);
+            // // 模擬AI回覆
+            // setTimeout(() => {
+            //     addMessage('你好,現在我還沒上線,請你等我有上線的時候再來跟我聊天喔~!!', 'ai');
+            // }, 1000);
+
+            // 呼叫後端API取得AI回覆
+            fetch('/callAI')
+                .then(response => response.json())
+                .then(data => {
+                    addMessage(data.message, 'assistant');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    addMessage('抱歉，無法取得回覆。請稍後再試。', 'assistant');
+                });
         }
 
     </script>
