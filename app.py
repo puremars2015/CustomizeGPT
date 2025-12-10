@@ -15,7 +15,7 @@ def call_ai():
     return jsonify({"message": message["output"]})
 
 def calln8n(prompt):
-    response = requests.get("http://localhost:5678/webhook-test/408aed93-9609-4378-b2d3-7a1b22eb9abe", params={"content": prompt})
+    response = requests.get("http://localhost:5678/webhook/408aed93-9609-4378-b2d3-7a1b22eb9abe", params={"content": prompt})
     message = response.json()
     return message
 

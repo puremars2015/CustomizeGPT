@@ -18,6 +18,10 @@ python -m venv .venv
 ```
 pip install flask
 ```
+4. 安裝requests
+```
+pip install requests
+```
 # 網頁,js的控制
 
 1. app.py
