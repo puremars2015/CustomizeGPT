@@ -46,4 +46,6 @@ pip install requests
 
 # 組裝成一個客製版的chatgpt的效果
 
-
+.gitignore
+# 為了讓檔案不被上傳到GitHub，可以在專案根目錄下建立一個名為 .gitignore 的檔案，並在裡面列出要忽略的檔案或資料夾。
+# 例如，上面的範例中，.venv/ 這個資料夾和 今天中午吃.txt 這個檔案就會被 Git 忽略，不會被加入版本控制。
