@@ -1,1 +1,45 @@
 這是測試喔~
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+
+這是測試喔喔
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+>>>>>>> c2c2de7c22dc15c12f66c6a525f1a941905ebbd7
+
+Test....
+=======
+我好餓
+<<<<<<< HEAD
+=======
+=======
+
+歐嗨喲溝扎一嗎斯
+=======
+=======
+>>>>>>> Stashed changes
+>>>>>>> c2c2de7c22dc15c12f66c6a525f1a941905ebbd7
+=======
+vvvvvv haha
+>>>>>>> Stashed changes
+
+
+tttttttttt ppppp ooo
+<<<<<<< HEAD
+>>>>>>> 84f1a723fbf3394b62d59fecb85a1b96b9c9a0c0
+=======
+<<<<<<< Updated upstream
+>>>>>>> 84f1a723fbf3394b62d59fecb85a1b96b9c9a0c0
+=======
+
+
+test hello,ppp222ooo
+=======
+
+我好餓
+
+歐嗨喲溝扎一嗎斯
+>>>>>>> 64961be7941c907b56a771b9abb18bb2263d92b9
