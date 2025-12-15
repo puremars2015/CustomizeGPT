@@ -7,6 +7,10 @@ app = Flask(__name__)
 def home():
     return render_template('index.html')
 
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
 @app.route('/callAI', methods=['GET'])
 def call_ai():
     # Here you would add the logic to handle the AI call
@@ -15,7 +19,7 @@ def call_ai():
     return jsonify({"message": message["output"]})
 
 def calln8n(prompt):
-    response = requests.get("http://localhost:5678/webhook/408aed93-9609-4378-b2d3-7a1b22eb9abe", params={"content": prompt})
+    response = requests.get("http://localhost:5678/webhook/95cfdc22-80fc-4ffc-95ab-504f9b5c7403", params={"content": prompt})
     message = response.json()
     return message
 
