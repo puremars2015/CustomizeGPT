@@ -3,6 +3,7 @@
 
 這是測試喔喔
 <<<<<<< HEAD
+<<<<<<< Updated upstream
 
 Test....
 =======
@@ -11,9 +12,26 @@ Test....
 歐嗨喲溝扎一嗎斯
 =======
 =======
+>>>>>>> Stashed changes
+=======
 vvvvvv haha
 >>>>>>> Stashed changes
 
 
 tttttttttt ppppp ooo
+<<<<<<< Updated upstream
 >>>>>>> 84f1a723fbf3394b62d59fecb85a1b96b9c9a0c0
+=======
+
+
+test hello,ppp222ooo
+=======
+
+我好餓
+
+歐嗨喲溝扎一嗎斯
+>>>>>>> bbbea14293f7b46ec6af3387e9b8d9bc2f333add
+>>>>>>> Stashed changes
+
+
+hahaaaa
