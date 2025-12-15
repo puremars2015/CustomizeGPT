@@ -1,22 +1,33 @@
 <html>
 
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CustomizeGPT</title>
     <style>
-        <script>
-            
-        </script>
+       
     </style>
+    <script>
+        function login() {
+            var account = document.getElementById("account").value;
+            var password = document.getElementById("password").value;
+
+
+            alert(`Login function called: Account=${account}, Password=${password}`);      
+        }
+    </script>
 </head>
 
-<body>
-    <!--左側-->
-    <div></div>
 
-    <!--右側-->
+<body>
+    <!-- 左側 -->
     <div>
+
+
+    </div>
+    <!-- 右側 -->
+     <div>
         <div>
             <label>帳號:</label><input id="account">
         </div>
@@ -24,11 +35,10 @@
             <label>密碼:</label><input id="password" type="password">
         </div>
         <div>
-            <button onclick="login">Login to CustomizeGPT</button>  
+            <button onclick="login()">Login</button>
         </div>
-    </div>
-
-
+     </div>
 </body>
+
 
 </html>
