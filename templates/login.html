@@ -15,14 +15,15 @@
             alert(`Login function called: Account=${account}, Password=${password}`);     
             
              // 呼叫後端API取得AI回覆
-            fetch('/callAI?message=' + encodeURIComponent(message))
+            fetch('/login-action?username=' + encodeURIComponent(account) + '&password=' + encodeURIComponent(password))
                 .then(response => response.json())
                 .then(data => {
-                    addMessage(data.message, 'assistant');
+                    console.log('Success:', data);
+                    alert(data.status);
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    addMessage('抱歉，無法取得回覆。請稍後再試。', 'assistant');
+                    addMessage('抱歉，無法登入。請稍後再試。');
                 });
         }
     </script>
