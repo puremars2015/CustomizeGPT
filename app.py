@@ -11,6 +11,10 @@ def home():
 def login():
     return render_template('login.html')
 
+@app.route('/login-action')
+def login_action():
+    return 'OK'
+
 @app.route('/callAI', methods=['GET'])
 def call_ai():
     # Here you would add the logic to handle the AI call
