@@ -20,6 +20,15 @@
                 .then(data => {
                     console.log('Success:', data);
                     alert(data.status);
+
+                    if (data.status === 'success') {
+                        // 登入成功後的處理
+                        localStorage.setItem('authToken', data.token);
+                    } else {
+                        // 登入失敗的處理
+                        alert('登入失敗，請檢查帳號密碼。');
+                    }
+
                 })
                 .catch(error => {
                     console.error('Error:', error);

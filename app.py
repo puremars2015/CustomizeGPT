@@ -13,7 +13,7 @@ def login():
 
 @app.route('/login-action')
 def login_action():
-    return '{"status": "success"}'
+    return '{"status": "success", "token": "JDFHBVWHSJDHKS;12JNWTELVT"}'
 
 @app.route('/callAI', methods=['GET'])
 def call_ai():
