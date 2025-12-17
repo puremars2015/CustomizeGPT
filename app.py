@@ -11,9 +11,13 @@ def home():
 def login():
     return render_template('login.html')
 
-@app.route('/login-action')
+@app.route('/login-action', methods=['POST'])
 def login_action():
-    return '{"status": "success", "token": "JDFHBVWHSJDHKS;12JNWTELVT"}'
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+    # 這裡可以加入實際的帳號密碼驗證邏輯
+    return jsonify({"status": "success", "token": "JDFHBVWHSJDHKS;12JNWTELVT"})
 
 @app.route('/callAI', methods=['GET'])
 def call_ai():
