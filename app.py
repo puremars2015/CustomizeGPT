@@ -24,7 +24,6 @@ def login_action():
         return jsonify({"status": "error", "message": "Invalid credentials"})
     
     token = generate_token()
-
     updateAccount(account, token)
 
     return jsonify({"status": "success", "token": token})
@@ -47,7 +46,7 @@ def readAccount(account, password):
     return message
 
 def updateAccount(account, token):
-    response = requests.post("http://localhost:5678/webhook-test/update-account", params={"account": account, "token": token})
+    response = requests.post("http://localhost:5678/webhook/update-account", params={"account": account, "token": token})
     message = response.json()
     return message
 
