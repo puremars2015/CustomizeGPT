@@ -27,6 +27,11 @@ def call_ai():
     message = calln8n(message)
     return jsonify({"message": message["output"]})
 
+def readAccount(account, password):
+    response = requests.post("http://localhost:5678/webhook-test/read-account", params={"account": account, "password": password})
+    message = response.json()
+    return message
+
 def calln8n(prompt):
     response = requests.get("http://localhost:5678/webhook/95cfdc22-80fc-4ffc-95ab-504f9b5c7403", params={"content": prompt})
     message = response.json()
