@@ -18,6 +18,10 @@ python -m venv .venv
 ```
 pip install flask
 ```
+4. 安裝requests
+```
+pip install requests
+```
 # 網頁,js的控制
 
 1. app.py
@@ -41,3 +45,5 @@ pip install flask
 2. 後端去call gemini的api或chatgpt的api
 
 # 組裝成一個客製版的chatgpt的效果
+
+
