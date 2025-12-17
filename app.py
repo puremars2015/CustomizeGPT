@@ -16,7 +16,10 @@ def login_action():
     data = request.get_json()
     username = data.get('username')
     password = data.get('password')
-    # 這裡可以加入實際的帳號密碼驗證邏輯
+    # 如果username=sean.ma 且password=123456，则登录成功
+    if username != 'sean.ma' or password != '123456':
+        return jsonify({"status": "error", "message": "Invalid username or password"}), 401
+
     return jsonify({"status": "success", "token": "JDFHBVWHSJDHKS;12JNWTELVT"})
 
 @app.route('/callAI', methods=['GET'])

@@ -26,12 +26,34 @@
             border-bottom: 1px solid #565869;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
         }
 
         .header h1 {
             font-weight: 600;
             font-size: 18px;
+            flex: 1;
+            text-align: center;
+        }
+
+        .model-selector {
+            background-color: #40414f;
+            border: 1px solid #565869;
+            border-radius: 6px;
+            padding: 8px 12px;
+            color: #ececf1;
+            font-size: 14px;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .model-selector:hover {
+            border-color: #10a37f;
+        }
+
+        .model-selector:focus {
+            border-color: #10a37f;
         }
 
         .chat-container {
@@ -121,7 +143,8 @@
         .send-button {
             position: absolute;
             right: 12px;
-            bottom: 12px;
+            top: 50%;
+            transform: translateY(-50%);
             background-color: #10a37f;
             border: none;
             border-radius: 6px;
@@ -187,7 +210,13 @@
 
 <body>
     <div class="header">
+        <select class="model-selector" id="modelSelector">
+            <option value="ChatGPT" selected>ChatGPT</option>
+            <option value="Gemini">Gemini</option>  
+            <option value="Claude">Claude</option>
+        </select>
         <h1>CustomizeGPT</h1>
+        <div style="width: 140px;"></div> <!-- Spacer for centering -->
     </div>
     <!-- 注意,同一個名稱的ID只能有一個 -->
     <div class="chat-container" id="chatContainer">
@@ -214,6 +243,7 @@
         const chatContainer = document.getElementById('chatContainer');
         const messageInput = document.getElementById('messageInput');
         const sendButton = document.getElementById('sendButton');
+        const modelSelector = document.getElementById('modelSelector');
 
         messageInput.addEventListener('input', () => {
             this.style.height = 'auto';
@@ -278,7 +308,8 @@
             // }, 1000);
 
             // 呼叫後端API取得AI回覆
-            fetch('/callAI?message=' + encodeURIComponent(message))
+            const selectedModel = modelSelector.value;
+            fetch('/callAI?message=' + encodeURIComponent(message) + '&model=' + encodeURIComponent(selectedModel))
                 .then(response => response.json())
                 .then(data => {
                     addMessage(data.message, 'assistant');
