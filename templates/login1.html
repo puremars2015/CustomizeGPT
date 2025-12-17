@@ -1,0 +1,60 @@
+<html>
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CustomizeGPT</title>
+    <style>
+       
+    </style>
+<script>
+function login() {
+    const account = document.getElementById("account").value;
+    const password = document.getElementById("password").value;
+
+    const url = `/login-action?account=${encodeURIComponent(account)}&password=${encodeURIComponent(password)}`;
+
+    fetch(url)
+        .then(res => res.json())
+        .then(data => {
+            if (data.status === 'success') {
+                localStorage.setItem('authToken', data.token);
+                window.location.href = '/';
+            } else {
+                alert('登入失敗，請檢查帳號密碼');
+                localStorage.removeItem('authToken');
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            alert('登入失敗，伺服器錯誤');
+        });
+}
+</script>
+
+</head>
+
+
+<body>
+    <!-- 左側 -->
+    <div>
+
+
+    </div>
+    <!-- 右側 -->
+     <div>
+        <div>
+            <label>帳號:</label><input id="account">
+        </div>
+        <div>
+            <label>密碼:</label><input id="password" type="password">
+        </div>
+        <div>
+            <button onclick="login()">Login</button>
+        </div>
+     </div>
+</body>
+
+
+</html>
