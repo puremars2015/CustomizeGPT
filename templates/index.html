@@ -288,9 +288,26 @@
             messageInput.style.height = 'auto';
 
             // 模擬AI回覆
-            setTimeout(() => {
-                addMessage('你好,現在我還沒上線,請你等我有上線的時候再來跟我聊天喔~!!', 'ai');
-            }, 1000);
+            // setTimeout(() => {
+            //     addMessage('你好,現在我還沒上線,請你等我有上線的時候再來跟我聊天喔~!!', 'ai');
+            // }, 1000);
+
+            // Call AI backend (Flask)
+            fetch(`/callAI?message=${encodeURIComponent(message)}`, {
+                method: 'GET'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    addMessage(data.error, 'assistant');
+                } else {
+                    addMessage(data.content || data.response || '收到回應', 'assistant');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                addMessage('發生錯誤，請稍後再試', 'assistant');
+            });
         }
 
     </script>
