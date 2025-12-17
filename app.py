@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, render_template, request
 import requests
+import secrets
 
 app = Flask(__name__)
 
@@ -22,11 +23,16 @@ def login_action():
     if response.get("account") is None:
         return jsonify({"status": "error", "message": "Invalid credentials"})
     
-    token = "JDFHBVWHSJDHKS;12JNWTELVT"
+    token = generate_token()
 
     updateAccount(account, token)
 
     return jsonify({"status": "success", "token": token})
+
+
+def generate_token():
+    return secrets.token_urlsafe(32)
+
 
 @app.route('/callAI', methods=['GET'])
 def call_ai():
