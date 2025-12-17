@@ -5,30 +5,157 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CustomizeGPT</title>
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #343541;
+            color: #ececf1;
+        }
+
+        .login-container {
+            background-color: #202123;
+            border-radius: 12px;
+            padding: 48px 40px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+
+        .login-header h1 {
+            font-weight: 600;
+            font-size: 28px;
+            margin-bottom: 8px;
+            color: #ececf1;
+        }
+
+        .login-header p {
+            font-size: 14px;
+            color: #8e8ea0;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #ececf1;
+        }
+
+        .form-group input {
+            width: 100%;
+            background-color: #40414f;
+            border: 1px solid #565869;
+            border-radius: 6px;
+            padding: 12px 16px;
+            font-size: 16px;
+            color: #ececf1;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: #10a37f;
+        }
+
+        .form-group input::placeholder {
+            color: #8e8ea0;
+        }
+
+        .login-button {
+            width: 100%;
+            background-color: #10a37f;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 8px;
+        } 
         
+        .login-button:hover {
+            background-color: #0b7359;
+        }
+
+        .login-button:active {
+            transform: scale(0.98);
+        }
+
+        .success-message, .error-message {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .success-message {
+            background-color: #1e4620;
+            color: #a6f4b5;
+            display: none;
+        }
+
+        .error-message {
+            background-color: #4a2020;
+            color: #f4a6a6;
+            display: none;
+        }
     </style>
     <script>
         function login() {
             var account = document.getElementById("account").value;
             var password = document.getElementById("password").value;
 
-            alert(`Login function called: Account=${account}, Password=${password}`);     
-            
-             // 呼叫後端API取得AI回覆
-            fetch('/login-action?username=' + encodeURIComponent(account) + '&password=' + encodeURIComponent(password))
+            // 呼叫後端API取得AI回覆
+            fetch('/login-action', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ account: account, password: password })
+            })
                 .then(response => response.json())
                 .then(data => {
                     console.log('Success:', data);
-                    alert(data.status);
 
                     if (data.status === 'success') {
+
+                        document.getElementById('successMessage').innerText = '登入成功！正在跳轉...';
+                        document.getElementById('errorMessage').innerText = '';
+                        document.getElementById('successMessage').style.display = 'block';
+                        document.getElementById('errorMessage').style.display = 'none';
+
                         // 登入成功後的處理
                         localStorage.setItem('authToken', data.token);
 
                         window.location.href = '/';
                     } else {
                         // 登入失敗的處理
-                        alert('登入失敗，請檢查帳號密碼。');
+                        document.getElementById('successMessage').innerText = '';
+                        document.getElementById('errorMessage').innerText = '登入失敗，請檢查帳號密碼。';
+                        document.getElementById('successMessage').style.display = 'none';
+                        document.getElementById('errorMessage').style.display = 'block';
 
                         // 清除可能已存的token
                         localStorage.removeItem('authToken');
@@ -36,30 +163,42 @@
 
                 })
                 .catch(error => {
-                    console.error('Error:', error);
-                    addMessage('抱歉，無法登入。請稍後再試。');
+                    
+                    // 登入失敗的處理
+                    document.getElementById('successMessage').innerText = '';
+                    document.getElementById('errorMessage').innerText = '登入失敗，請檢查帳號密碼。';
+                    document.getElementById('successMessage').style.display = 'none';
+                    document.getElementById('errorMessage').style.display = 'block';
                 });
         }
     </script>
 </head>
 
 <body>
-    <!-- 左側 -->
-    <div>
+    <div class="login-container">
 
+        <div class="login-header">
+            <h1>CustomizeGPT 登入頁面</h1>
+            <p>登入以繼續使用</p>
+        </div>
+
+        <div class="form-group">
+            <label>帳號:</label><input id="account" placeholder="請輸入帳號">
+        </div>
+
+        <div class="form-group">
+            <label>密碼:</label><input id="password" type="password" placeholder="請輸入密碼">
+        </div>
+
+        <button class="login-button" onclick="login()">Login</button>
+
+        <!-- 登入成功 -->
+        <div id="successMessage" class="success-message"></div>
+
+        <!-- 登入失敗 -->
+        <div id="errorMessage" class="error-message"></div>
     </div>
-    <!-- 右側 -->
-     <div>
-        <div>
-            <label>帳號:</label><input id="account">
-        </div>
-        <div>
-            <label>密碼:</label><input id="password" type="password">
-        </div>
-        <div>
-            <button onclick="login()">Login</button>
-        </div>
-     </div>
+
 </body>
 
 </html>

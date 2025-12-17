@@ -11,8 +11,13 @@ def home():
 def login():
     return render_template('login.html')
 
-@app.route('/login-action')
+@app.route('/login-action', methods=['POST'])
 def login_action():
+    data = request.get_json()
+    account = data.get('account')
+    password = data.get('password')
+    if account != 'sean.ma@thetainformation.com' or password != '1234567890':
+        return '{"status": "error", "message": "Invalid credentials"}'
     return '{"status": "success", "token": "JDFHBVWHSJDHKS;12JNWTELVT"}'
 
 @app.route('/callAI', methods=['GET'])
