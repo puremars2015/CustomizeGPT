@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, render_template, request
 import requests
 import secrets
+import pyodbc
 
 app = Flask(__name__)
 
@@ -50,8 +51,77 @@ def updateAccount(account, token):
     message = response.json()
     return message
 
+def readAccountFromDB(account, password):
+    conn_str = (
+        "Driver={ODBC Driver 17 for SQL Server};"
+        "Server=localhost;"
+        "Database=master;"
+        "UID=sa;"
+        "PWD=Str0ng!Passw0rd;"
+        "Encrypt=yes;"
+        "TrustServerCertificate=yes;"
+    )
+    
+    try:
+        conn = pyodbc.connect(conn_str)
+        cursor = conn.cursor()
+        
+        query = "SELECT * FROM accounts WHERE account = ? AND password = ?"
+        cursor.execute(query, (account, password))
+        
+        row = cursor.fetchone()
+        
+        if row:
+            result = {
+                "account": row.account,
+                "password": row.password
+            }
+        else:
+            result = {}
+        
+        cursor.close()
+        conn.close()
+        
+        return result
+    except Exception as e:
+        print(f"Database error: {e}")
+        return {}
+
+def updateAccountFromDB(account, token):
+    conn_str = (
+        "Driver={ODBC Driver 17 for SQL Server};"
+        "Server=localhost;"
+        "Database=master;"
+        "UID=sa;"
+        "PWD=Str0ng!Passw0rd;"
+        "Encrypt=yes;"
+        "TrustServerCertificate=yes;"
+    )
+
+    conn = None
+    cursor = None
+    try:
+        conn = pyodbc.connect(conn_str)
+        cursor = conn.cursor()
+
+        query = "UPDATE accounts SET token = ? WHERE account = ?"
+        cursor.execute(query, (token, account))
+        conn.commit()
+
+        return cursor.rowcount > 0
+    except Exception as e:
+        print(f"Database error: {e}")
+        return False
+    finally:
+        try:
+            if cursor is not None:
+                cursor.close()
+        finally:
+            if conn is not None:
+                conn.close()
+
 def calln8n(prompt):
-    response = requests.get("http://localhost:5678/webhook/95cfdc22-80fc-4ffc-95ab-504f9b5c7403", params={"content": prompt})
+    response = requests.get("http://localhost:5678/webhook/3ba0092d-cc71-4227-91c5-565ca262c097", params={"content": prompt})
     message = response.json()
     return message
 
