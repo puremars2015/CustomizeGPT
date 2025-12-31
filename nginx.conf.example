@@ -1,0 +1,58 @@
+# Nginx 配置範例
+# 將此檔案複製到 /etc/nginx/sites-available/ 並建立符號連結到 sites-enabled/
+
+server {
+    listen 80;
+    server_name your-domain.com;  # 修改為你的網域名稱
+
+    # 如果要使用 HTTPS，請取消以下註解並配置 SSL 憑證
+    # listen 443 ssl http2;
+    # ssl_certificate /path/to/your/certificate.crt;
+    # ssl_certificate_key /path/to/your/private.key;
+    # ssl_protocols TLSv1.2 TLSv1.3;
+    # ssl_ciphers HIGH:!aNULL:!MD5;
+
+    # 自動重導向 HTTP 到 HTTPS
+    # if ($scheme = http) {
+    #     return 301 https://$server_name$request_uri;
+    # }
+
+    # 日誌設定
+    access_log /var/log/nginx/customizegpt_access.log;
+    error_log /var/log/nginx/customizegpt_error.log;
+
+    # 靜態檔案
+    location /static {
+        alias /path/to/CustomizeGPT/static;  # 修改為實際路徑
+        expires 30d;
+        add_header Cache-Control "public, immutable";
+    }
+
+    # 代理設定
+    location / {
+        proxy_pass http://127.0.0.1:5050;  # Gunicorn 運行的位址
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        # WebSocket 支援（如果需要）
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+
+        # 逾時設定
+        proxy_connect_timeout 60s;
+        proxy_send_timeout 60s;
+        proxy_read_timeout 60s;
+    }
+
+    # 安全性標頭
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+    add_header Referrer-Policy "no-referrer-when-downgrade" always;
+
+    # 限制上傳大小
+    client_max_body_size 10M;
+}
