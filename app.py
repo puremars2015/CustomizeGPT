@@ -272,11 +272,6 @@ def updateAccountFromDB(account, token):
                 conn.close()
 
 def calln8n(prompt):
-<<<<<<< HEAD
-    response = requests.get("http://localhost:5678/webhook/3ba0092d-cc71-4227-91c5-565ca262c097", params={"content": prompt})
-    message = response.json()
-    return message
-=======
     """呼叫 n8n AI webhook"""
     try:
         response = requests.get(
@@ -307,7 +302,6 @@ def internal_error(error):
         "status": "error",
         "message": "伺服器內部錯誤"
     }), 500
->>>>>>> aa929984b38d3b2c51f0944dbf73c4ca819f5471
 
 
 if __name__ == '__main__':
